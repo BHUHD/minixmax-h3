@@ -2,9 +2,12 @@
 
 NPU 16-die 常驻推理：HTTP 提交 → 串行出片。架构细节见 `[docs/自研优化代码架构.md](docs/自研优化代码架构.md)`。
 
-## 效果
+## 生成效果
 
-![文生视频][./docs/output.mp4]
+[生成效果](https://www.bilibili.com/video/BV1LJbw6uEtc/) 类似如下：
+
+![1080p_img2](Ref2VA/CANN-9.1.0/INI8/assets/1080p_img2.png)
+
 
 ## 硬件 / 驱动 / 固件 / CANN
 
