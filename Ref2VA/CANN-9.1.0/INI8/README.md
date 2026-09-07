@@ -6,7 +6,7 @@ NPU 16-die 常驻推理：HTTP 提交 → 串行出片。架构细节见 `[docs/
 
 [生成效果](https://www.bilibili.com/video/BV1LJbw6uEtc/) 类似如下：
 
-![1080p_img2](Ref2VA/CANN-9.1.0/INI8/assets/1080p_img2.png)
+![1080p_img2](./assets/1080p_img2.png)
 
 
 ## 硬件 / 驱动 / 固件 / CANN
@@ -87,8 +87,8 @@ curl -F prompt='以 <Picture 1> 为角色…' -F task=ref2va -F 'ref_images=@ref
 
 | 文档                                                                   | 内容                   |
 | -------------------------------------------------------------------- | -------------------- |
-| `[docs/自研优化代码架构.md](docs/自研优化代码架构.md)`                               | 调用链、量化/FA/分布式、如何改与优化 |
-| `[docs/INT8_v1.1.md](docs/INT8_v1.1.md)`                             | v1.1 修复说明            |
-| `[docs/INT8_16die_deploy_guide.md](docs/INT8_16die_deploy_guide.md)` | 部署验证细节               |
+| [docs/自研优化代码架构.md](docs/自研优化代码架构.md)                              | 调用链、量化/FA/分布式、如何改与优化 |
+| [docs/INT8_v1.1.md](docs/INT8_v1.1.md)                             | v1.1 修复说明            |
+| [docs/INT8_16die_deploy_guide.md](docs/INT8_16die_deploy_guide.md) | 部署验证细节               |
 
 
