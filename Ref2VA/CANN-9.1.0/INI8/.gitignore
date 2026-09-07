@@ -1,0 +1,7 @@
+# 大体积产物不入库（视频 / metrics / serve 邮箱）
+debug/out/**
+!debug/out/.gitkeep
+
+# Python 缓存
+runtime/**/__pycache__/
+runtime/**/*.pyc

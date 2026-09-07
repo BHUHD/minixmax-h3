@@ -1,0 +1,48 @@
+# MiniMax-H3 Ref2VA INT8 API 服务镜像
+# base: minimax-h3:ref2va-cann9.1.0-int8-base（CANN 9.1.0 + torch_npu）
+# tag:  minimax-h3:ref2va-cann9.1.0-int8-v1.0
+#
+# 构建（在本目录 INI8/）:
+#   docker build -t minimax-h3:ref2va-cann9.1.0-int8-v1.0 -f Dockerfile.v1.0 .
+FROM minimax-h3:ref2va-cann9.1.0-int8-base
+
+LABEL description="MiniMax-H3 Ref2VA INT8 16-die + FastAPI Worker (CANN 9.1.0)"
+LABEL version="1.0"
+LABEL ascend.cann="9.1.0"
+
+# 运行时代码全部 bake 进镜像（模型与可选视频输出目录外挂）
+COPY runtime/src /workspace/src
+COPY runtime/api /workspace/api
+COPY runtime/scripts /workspace/scripts
+COPY runtime/examples /workspace/examples
+COPY runtime/tests /workspace/tests
+COPY debug/input /workspace/assets
+COPY scripts/entrypoint.sh /opt/h3/entrypoint.sh
+
+# FastAPI 依赖（base 一般已有；再保证一次）
+RUN python3 -m pip install --no-cache-dir --break-system-packages \
+      fastapi uvicorn python-multipart httpx \
+      -i https://mirrors.aliyun.com/pypi/simple \
+    || python3 -m pip install --no-cache-dir \
+      fastapi uvicorn python-multipart httpx \
+      -i https://mirrors.aliyun.com/pypi/simple
+
+WORKDIR /workspace
+ENV WORKSPACE_ROOT=/workspace \
+    PYTHONPATH=/workspace/src:/workspace/api:/workspace \
+    H3_JOB_ROOT=/workspace/jobs \
+    H3_SERVE_DIR=/workspace/out/h3_serve \
+    H3_OUTPUT_DIR=/workspace/output \
+    H3_API_PORT=8080 \
+    H3_API_MOCK=0 \
+    H3_MOCK_SERVE=0 \
+    H3_MODELS=/models/h3_quant \
+    H3_TASK_RETENTION_DAYS=7 \
+    H3_TASK_TIMEOUT=7200
+
+RUN mkdir -p /workspace/jobs /workspace/out/h3_serve /workspace/output \
+    && chmod +x /opt/h3/entrypoint.sh /workspace/scripts/*.sh /workspace/scripts/*.py
+
+EXPOSE 8080
+
+ENTRYPOINT ["/opt/h3/entrypoint.sh"]

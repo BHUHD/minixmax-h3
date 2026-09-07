@@ -1,0 +1,72 @@
+# ===== 模型权重（手动下载，不入库）=====
+models/**/*.safetensors
+models/**/*.bin
+models/**/*.pt
+models/**/*.pth
+models/**/*.ckpt
+models/**/*.onnx
+models/**/*.gguf
+models/**/*.npz*
+models/**/*.h5
+models/**/*.npz.index
+models/**/*.msgpack
+models/**/*.npz.data-*
+# 允许保留目录说明
+!models/**/README.md
+!models/**/.gitkeep
+
+# ===== 推理 / 调试产物 =====
+**/debug/out/**
+!**/debug/out/.gitkeep
+**/*.mp4
+**/*.webm
+**/*.avi
+**/*.mkv
+**/h3_serve/
+**/*.metrics.json
+**/*.peak_hbm
+**/*.peak_pwr
+**/*.peak_ram
+**/*.sampler.pid
+
+# 预览帧 / 大图产物（保留 debug/input 参考图）
+**/debug/out/**/*.png
+**/debug/out/**/*.jpg
+**/debug/out/**/*.jpeg
+
+# ===== Python =====
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+.eggs/
+dist/
+build/
+.venv/
+venv/
+.env
+.env.*
+!.env.example
+
+# ===== 编辑器 / OS =====
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# ===== Docker / 临时 =====
+*.log
+*.tmp
+*.bak
+.cache/
+tmp/
+temp/
+
+# ===== Cursor / 本地代理 =====
+.cursor/
+agent-transcripts/

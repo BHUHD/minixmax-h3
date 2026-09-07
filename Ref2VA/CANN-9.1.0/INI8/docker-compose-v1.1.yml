@@ -1,0 +1,97 @@
+# MiniMax-H3 Ref2VA INT8 v1.1 — 一键启动（含 TE/噪声/t2va 修复）
+#
+# 在仓库根目录 MiniMax-H3/ 执行：
+#   docker compose -f Ref2VA/CANN-9.1.0/INI8/docker-compose-v1.1.yml up -d
+#
+# 镜像：nuvic/minimax-h3:ref2va-cann9.1.0-int8-v1.1
+name: minimax-h3-ref2va-int8-v1
+
+services:
+  ref2va-int8-npu16:
+    image: ${H3_IMAGE:-nuvic/minimax-h3:ref2va-cann9.1.0-int8-v1.1}
+    container_name: minimax-h3-ref2va-int8-npu16
+    restart: "no"
+    privileged: true
+    network_mode: host
+    ipc: host
+    shm_size: "16gb"
+    oom_kill_disable: false
+    pids_limit: 8192
+    mem_limit: 512g
+    memswap_limit: 512g
+    working_dir: /workspace
+    volumes:
+      - ${H3_MODEL_HOST:-../../../models/ComfyUI/INI8/Ref2VA}:/models/h3_quant:ro
+      # - ${H3_OUTPUT_HOST:-${HOME}/minimax-h3/output}:/workspace/output
+      - /usr/local/dcmi:/usr/local/dcmi:ro
+      - /usr/local/bin/npu-smi:/usr/local/bin/npu-smi:ro
+      - /usr/local/Ascend/driver:/usr/local/Ascend/driver:ro
+      - /usr/local/Ascend/firmware:/usr/local/Ascend/firmware:ro
+      - /usr/local/Ascend/driver/version.info:/usr/local/Ascend/driver/version.info:ro
+      - /etc/ascend_install.info:/etc/ascend_install.info:ro
+    environment:
+      ASCEND_RT_VISIBLE_DEVICES: "0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15"
+      H3_PHY_DEVICES: "0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15"
+      H3_PARTITION: ref2va
+      H3_MODELS: /models/h3_quant
+      H3_NPROC: "16"
+      H3_REQUIRE_WORLD: "16"
+      H3_SERVE: "1"
+      H3_SERVE_PREWARM: "1"
+      H3_SERVE_DIT_WARMUP: "1"
+      H3_SERVE_DIR: /workspace/out/h3_serve
+      H3_SERVE_PLAN_STEPS: "20"
+      H3_SPAWN_STAGGER: "0.12"
+      H3_SKIP_WARMUP: "1"
+      H3_NPU_INT8_NZ: "1"
+      H3_HCCL_GATHER: "broadcast"
+      H3_ATTN_RING: "0"
+      H3_PROGRESSIVE: "0"
+      H3_STEP_SYNC: "1"
+      H3_SAMPLER: "res_multistep"
+      H3_FA_BACKEND: "infer_v2"
+      TASK_QUEUE_ENABLE: "0"
+      PYTORCH_NPU_ALLOC_CONF: "expandable_segments:False"
+      MALLOC_ARENA_MAX: "2"
+      HF_HUB_OFFLINE: "1"
+      HCCL_CONNECT_TIMEOUT: "1800"
+      HCCL_WHITELIST_DISABLE: "1"
+      HCCL_OP_EXPANSION_MODE: "AIV"
+      HCCL_BUFFSIZE: "512"
+      HCCL_HOST_SOCKET_PORT_RANGE: "auto"
+      HCCL_NPU_SOCKET_PORT_RANGE: "auto"
+      HCCL_INTRA_PCIE_ENABLE: "1"
+      HCCL_INTRA_ROCE_ENABLE: "0"
+      H3_TE_RANK0_ENCODE: "1"
+      MASTER_PORT: "29531"
+      H3_CANN_VER: "9.1.0"
+      H3_API_MOCK: "0"
+      H3_API_PORT: "8080"
+      H3_API_HOST: "0.0.0.0"
+      H3_JOB_ROOT: /workspace/jobs
+      H3_OUTPUT_DIR: /workspace/output
+      H3_MOCK_SERVE: "0"
+      H3_TASK_RETENTION_DAYS: "7"
+      H3_TASK_CLEANUP_INTERVAL: "3600"
+      H3_TASK_TIMEOUT: "7200"
+      WORKSPACE_ROOT: /workspace
+    devices:
+      - /dev/davinci0
+      - /dev/davinci1
+      - /dev/davinci2
+      - /dev/davinci3
+      - /dev/davinci4
+      - /dev/davinci5
+      - /dev/davinci6
+      - /dev/davinci7
+      - /dev/davinci8
+      - /dev/davinci9
+      - /dev/davinci10
+      - /dev/davinci11
+      - /dev/davinci12
+      - /dev/davinci13
+      - /dev/davinci14
+      - /dev/davinci15
+      - /dev/davinci_manager
+      - /dev/devmm_svm
+      - /dev/hisi_hdc
