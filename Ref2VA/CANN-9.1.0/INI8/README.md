@@ -28,21 +28,14 @@ NPU 16-die 常驻推理：HTTP 提交 → 串行出片。架构细节见：[docs
 
 准备ComfyUI版本的Ref2VA权重，放到本项目的 `models/ComfyUI/INI8/Ref2VA/` 目录内 ：
 
-> models/ComfyUI/INI8/Ref2VA/
->
-> ├── diffusion_models  
->
-> │   └── [minimax_h3_ref2va_pruned_int8_convrot.safetensors](https://huggingface.co/Comfy-Org/MiniMax-H3/resolve/main/diffusion_models/minimax_h3_ref2va_pruned_int8_convrot.safetensors)  
->
-> ├── text_encoders  
->
-> │   └── [qwen3vl_32b_minimax_h3_nvfp4_awq.safetensors](https://huggingface.co/Comfy-Org/MiniMax-H3/resolve/main/text_encoders/qwen3vl_32b_minimax_h3_nvfp4_awq.safetensors)  
->
-> └──vae  
->
-> ​       ├── [minimax_h3_audio_vae_fp32.safetensors](https://huggingface.co/Comfy-Org/MiniMax-H3/resolve/main/vae/minimax_h3_audio_vae_fp32.safetensors)  
->
-> ​       └── [minimax_h3_video_vae_fp16.safetensors](https://huggingface.co/Comfy-Org/MiniMax-H3/resolve/main/vae/minimax_h3_video_vae_fp16.safetensors)
+
+| 目录                                            | 模型                                                                                                                                                                               |
+| --------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `models/ComfyUI/INI8/Ref2VA/diffusion_models` | [minimax_h3_ref2va_pruned_int8_convrot.safetensors](https://huggingface.co/Comfy-Org/MiniMax-H3/resolve/main/diffusion_models/minimax_h3_ref2va_pruned_int8_convrot.safetensors) |
+| `models/ComfyUI/INI8/Ref2VA/text_encoders`    | [qwen3vl_32b_minimax_h3_nvfp4_awq.safetensors](https://huggingface.co/Comfy-Org/MiniMax-H3/resolve/main/text_encoders/qwen3vl_32b_minimax_h3_nvfp4_awq.safetensors)              |
+| `models/ComfyUI/INI8/Ref2VA/vae`              | [minimax_h3_audio_vae_fp32.safetensors](https://huggingface.co/Comfy-Org/MiniMax-H3/resolve/main/vae/minimax_h3_audio_vae_fp32.safetensors)                                      |
+| `models/ComfyUI/INI8/Ref2VA/vae`              | [minimax_h3_video_vae_fp16.safetensors](https://huggingface.co/Comfy-Org/MiniMax-H3/resolve/main/vae/minimax_h3_video_vae_fp16.safetensors)                                      |
+
 
 执行下面命令下载镜像：
 
