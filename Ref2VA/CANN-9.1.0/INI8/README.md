@@ -29,13 +29,20 @@ NPU 16-die 常驻推理：HTTP 提交 → 串行出片。架构细节见：[docs
 准备ComfyUI版本的Ref2VA权重，放到本项目的 `models/ComfyUI/INI8/Ref2VA/` 目录内 ：
 
 > models/ComfyUI/INI8/Ref2VA/
-> ├── diffusion_models
-> │   └── [minimax_h3_ref2va_pruned_int8_convrot.safetensors](https://huggingface.co/Comfy-Org/MiniMax-H3/resolve/main/diffusion_models/minimax_h3_ref2va_pruned_int8_convrot.safetensors)
-> ├── text_encoders
-> │   └── [qwen3vl_32b_minimax_h3_nvfp4_awq.safetensors](https://huggingface.co/Comfy-Org/MiniMax-H3/resolve/main/text_encoders/qwen3vl_32b_minimax_h3_nvfp4_awq.safetensors)
-> └──vae
->     ├── [minimax_h3_audio_vae_fp32.safetensors](https://huggingface.co/Comfy-Org/MiniMax-H3/resolve/main/vae/minimax_h3_audio_vae_fp32.safetensors)
->     └── [minimax_h3_video_vae_fp16.safetensors](https://huggingface.co/Comfy-Org/MiniMax-H3/resolve/main/vae/minimax_h3_video_vae_fp16.safetensors)
+>
+> ├── diffusion_models  
+>
+> │   └── [minimax_h3_ref2va_pruned_int8_convrot.safetensors](https://huggingface.co/Comfy-Org/MiniMax-H3/resolve/main/diffusion_models/minimax_h3_ref2va_pruned_int8_convrot.safetensors)  
+>
+> ├── text_encoders  
+>
+> │   └── [qwen3vl_32b_minimax_h3_nvfp4_awq.safetensors](https://huggingface.co/Comfy-Org/MiniMax-H3/resolve/main/text_encoders/qwen3vl_32b_minimax_h3_nvfp4_awq.safetensors)  
+>
+> └──vae  
+>
+> ​       ├── [minimax_h3_audio_vae_fp32.safetensors](https://huggingface.co/Comfy-Org/MiniMax-H3/resolve/main/vae/minimax_h3_audio_vae_fp32.safetensors)  
+>
+> ​       └── [minimax_h3_video_vae_fp16.safetensors](https://huggingface.co/Comfy-Org/MiniMax-H3/resolve/main/vae/minimax_h3_video_vae_fp16.safetensors)
 
 执行下面命令下载镜像：
 
@@ -67,6 +74,7 @@ curl -F prompt='仙侠动漫' -F task=t2va -F width=1344 -F height=768 -F durati
 curl -F prompt='以 <Picture 1> 为角色…' -F task=ref2va -F 'ref_images=@ref.png' \
   -F width=1920 -F height=1088 -F duration=10 -F steps=20 http://127.0.0.1:8080/v1/tasks
 ```
+
 
 
 ## 推理耗时（v1.1 · 16 die）
