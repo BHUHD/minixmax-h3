@@ -101,4 +101,15 @@ curl -F prompt='以 <Picture 1> 为角色…' -F task=ref2va -F 'ref_images=@ref
 | [docs/INT8_v1.1.md](docs/INT8_v1.1.md)                             | v1.1 修复说明            |
 | [docs/INT8_16die_deploy_guide.md](docs/INT8_16die_deploy_guide.md) | 部署验证细节               |
 
+## 对比实验素材
+
+三任务相互独立，位于 [`data/`](data/)：
+
+| 目录 | 场景 | 内容 |
+|------|------|------|
+| `data/task_img1/` | 参考图 1 张 | `prompt.txt` + `image01.png` |
+| `data/task_img2/` | 参考图 2 张 | `prompt.txt` + `image01.png`–`image02.png` |
+| `data/task_full6x3x3/` | 图6+视3+音3 | `prompt.txt` + `image01`–`06` / `video01`–`03` / `audio01`–`03` |
+
+标签约定：`imageN` → `<Picture N>`，`videoN` → `<Video N>`，`audioN` → `<Audio N>`。
 

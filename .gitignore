@@ -15,24 +15,17 @@ models/**/*.npz.data-*
 !models/**/README.md
 !models/**/.gitkeep
 
-# ===== 推理 / 调试产物 =====
-**/debug/out/**
-!**/debug/out/.gitkeep
-**/*.mp4
-**/*.webm
-**/*.avi
-**/*.mkv
+# ===== 推理 / 调试产物（按目录忽略；视频素材默认入库）=====
+**/debug/out/
 **/h3_serve/
+**/output/
+tmp/
+temp/
 **/*.metrics.json
 **/*.peak_hbm
 **/*.peak_pwr
 **/*.peak_ram
 **/*.sampler.pid
-
-# 预览帧 / 大图产物（保留 debug/input 参考图）
-**/debug/out/**/*.png
-**/debug/out/**/*.jpg
-**/debug/out/**/*.jpeg
 
 # ===== Python =====
 __pycache__/
@@ -59,13 +52,11 @@ venv/
 .DS_Store
 Thumbs.db
 
-# ===== Docker / 临时 =====
+# ===== Docker / 缓存 =====
 *.log
 *.tmp
 *.bak
 .cache/
-tmp/
-temp/
 
 # ===== Cursor / 本地代理 =====
 .cursor/
