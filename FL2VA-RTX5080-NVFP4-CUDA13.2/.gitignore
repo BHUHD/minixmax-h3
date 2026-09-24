@@ -1,0 +1,36 @@
+# 运行时共享目录产物（不入库）
+/output/
+/input/*
+!/input/.gitkeep
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+
+# 本地环境与进程
+.env
+.env.*
+!.env.example
+*.pid
+*.log
+
+# 编辑器 / OS
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+*~
+*.swp
+*.swo
+
+# 杂项
+*.tmp
+*.bak
+.cache/
+
+# 旧版曾挂载过的本地目录（若残留也不入库）
+/temp/
+/user/

@@ -1,0 +1,35 @@
+# MiniMax-H3 FL2VA · RTX5080 · NVFP4 · CUDA13.2
+# 在本目录执行: docker compose up -d
+#
+# 仅共享三类目录到物理机：
+#   models（只读权重）· input（参考图）· output（成片）
+# temp / user 等留在容器内，不挂载。
+#
+# 启动前请确保宿主机目录已存在（否则 Docker 会以 root 自动创建）：
+#   mkdir -p input output
+#   # 模型：项目根目录 modelscope 下载后为 ../models/ComfyUI/nvfp4
+services:
+  minimax-h3:
+    image: nuvic/minimax-h3:fl2va-cuda13.2-nvfp4-v1.0.1
+    container_name: minimax-h3-fl2va-nvfp4
+    ports:
+      - "${COMFY_HOST_PORT:-8188}:8188"
+    environment:
+      - PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True
+      - NVIDIA_VISIBLE_DEVICES=all
+      - NVIDIA_DRIVER_CAPABILITIES=compute,utility,video
+      - COMFY_LISTEN=0.0.0.0
+      - COMFY_PORT=8188
+    volumes:
+      - ${COMFY_MODELS_DIR:-../models/ComfyUI/nvfp4}:/app/ComfyUI/models:ro
+      - ${COMFY_INPUT_DIR:-./input}:/app/ComfyUI/input
+      - ${COMFY_OUTPUT_DIR:-./output}:/app/ComfyUI/output
+    gpus: all
+    shm_size: "8gb"
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://127.0.0.1:8188/system_stats"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 180s
