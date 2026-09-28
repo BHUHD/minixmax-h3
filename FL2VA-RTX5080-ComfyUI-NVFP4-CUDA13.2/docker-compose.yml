@@ -10,7 +10,7 @@
 #   # 模型：项目根目录 modelscope 下载后为 ../models/ComfyUI/nvfp4
 services:
   minimax-h3:
-    image: nuvic/minimax-h3:fl2va-cuda13.2-nvfp4-v1.0.1
+    image: nuvic/minimax-h3:fl2va-rtx5080-comfyui-nvfp4-cuda13.2-v1.0.1
     container_name: minimax-h3-fl2va-nvfp4
     ports:
       - "${COMFY_HOST_PORT:-8188}:8188"

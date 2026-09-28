@@ -12,9 +12,10 @@
 
 在英伟达GPU上，运行MiniMax H3视频生成模型：
 
-| 设备     | 显存    | 模型        | 10s 1080P生成时间 | 详情                                                         |
-| -------- | ------- | ----------- | ----------------- | ------------------------------------------------------------ |
-| RTX 5080 | 1卡*16G | FL2VA NVFP4 | 17分钟            | [FL2VA-RTX5080-NVFP4-CUDA13.2/readme.md](./FL2VA-RTX5080-NVFP4-CUDA13.2/readme.md) |
+| 设备     | 显存    | 模型         | 10s 1080P生成时间 | 详情                                                         |
+| -------- | ------- | ------------ | ----------------- | ------------------------------------------------------------ |
+| RTX 5080 | 1卡*16G | FL2VA NVFP4  | 17分钟            | [FL2VA-RTX5080-ComfyUI-NVFP4-CUDA13.2/readme.md](./FL2VA-RTX5080-ComfyUI-NVFP4-CUDA13.2/readme.md) |
+| RTX 5080 | 1卡*16G | Ref2VA NVFP4 | 24分钟            | [Ref2VA-RTX5080-ComfyUI-NVFP4-CUDA13.2/readme.md](./Ref2VA-RTX5080-ComfyUI-NVFP4-CUDA13.2/readme.md) |
 
 ## 昇腾NPU
 
@@ -22,5 +23,5 @@
 
 | 设备 | 显存     | 模型        | 10s 1080P生成时间 | 详情                                                         |
 | ---- | -------- | ----------- | ----------------- | ------------------------------------------------------------ |
-| 910C | 8卡*128G | Ref2VA INI8 | 8分钟             | [Ref2VA/CANN-9.1.0/INI8/README.md](Ref2VA/CANN-9.1.0/INI8/README.md) |
+| 910C | 8卡*128G | Ref2VA INI8 | 8分钟             | [Ref2VA-910C-FastAPI-INT8-CANN9.1.0/readme.md](Ref2VA-910C-FastAPI-INT8-CANN9.1.0/readme.md) |
 

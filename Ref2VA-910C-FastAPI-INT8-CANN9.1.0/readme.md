@@ -68,8 +68,6 @@ curl -F prompt='以 <Picture 1> 为角色…' -F task=ref2va -F 'ref_images=@ref
   -F width=1920 -F height=1088 -F duration=10 -F steps=20 http://127.0.0.1:8080/v1/tasks
 ```
 
-
-
 ## 推理耗时（v1.1 · 16 die）
 
 条件：`H3_PROGRESSIVE=0`，steps=20，duration=**10s**，seed=42。  

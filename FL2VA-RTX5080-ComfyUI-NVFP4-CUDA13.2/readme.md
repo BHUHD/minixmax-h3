@@ -24,13 +24,13 @@ modelscope download  --model weiwenying/nuvic-minimax-h3  --include 'ComfyUI/nvf
 下载模型后，手动下载镜像：
 
 ```bash
-docker pull nuvic/minimax-h3:fl2va-cuda13.2-nvfp4-v1.0.1
+docker pull nuvic/minimax-h3:fl2va-rtx5080-comfyui-nvfp4-cuda13.2-v1.0.1
 ```
 
 进入本目录：
 
 ```bash
-cd ./FL2VA-RTX5080-NVFP4-CUDA13.2
+cd ./FL2VA-RTX5080-ComfyUI-NVFP4-CUDA13.2
 mkdir -p input output
 docker compose up -d
 docker compose logs -f   # 健康检查通过后可 Ctrl+C
@@ -145,7 +145,7 @@ Content-Type: application/json
 本目录已提供客户端与矩阵测试：
 
 ```bash
-cd ./FL2VA-RTX5080-NVFP4-CUDA13.2/
+cd ./FL2VA-RTX5080-ComfyUI-NVFP4-CUDA13.2/
 
 cp ./assets/input.png ./input/
 
@@ -202,7 +202,7 @@ print(urllib.request.urlopen(req).read().decode())
 | 项 | 值 |
 |---|---|
 | GPU | RTX 5080 16GB |
-| 镜像 | `nuvic/minimax-h3:fl2va-cuda13.2-nvfp4-v1.0.1` |
+| 镜像 | `nuvic/minimax-h3:fl2va-rtx5080-comfyui-nvfp4-cuda13.2-v1.0.1` |
 | steps | 20 |
 | seed | 42 |
 | fps | 24 |
@@ -241,7 +241,7 @@ print(urllib.request.urlopen(req).read().decode())
 #### 如果要复现
 
 ```bash
-cd FL2VA-RTX5080-NVFP4-CUDA13.2
+cd FL2VA-RTX5080-ComfyUI-NVFP4-CUDA13.2
 docker compose up -d
 python scripts/run_matrix_test.py
 ls -lh output/单参考图_*.mp4

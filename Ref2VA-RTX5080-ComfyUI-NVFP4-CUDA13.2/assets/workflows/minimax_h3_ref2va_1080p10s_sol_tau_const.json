@@ -1,0 +1,325 @@
+{
+  "_meta": {
+    "title": "MiniMax H3 Ref2VA 1080P10s Sol-Attn (NVFP4)",
+    "description": "RTX5080 NVFP4 Ref2VA API workflow with Sol-Attn tau=1.0 constant. Submit without _meta.",
+    "unet": "minimax_h3_ref2va_pruned_nvfp4.safetensors",
+    "clip": "qwen3vl_32b_minimax_h3_nvfp4_awq.safetensors",
+    "defaults": {
+      "width": 1920,
+      "height": 1088,
+      "seconds": 10,
+      "steps": 20,
+      "sol_attn_tau": 1.0
+    }
+  },
+  "92": {
+    "class_type": "SaveVideo",
+    "inputs": {
+      "video": [
+        "130",
+        0
+      ],
+      "filename_prefix": "ref2va/1080p10s20step",
+      "format": "auto",
+      "codec": "auto"
+    }
+  },
+  "119": {
+    "class_type": "VAELoader",
+    "inputs": {
+      "vae_name": "minimax_h3_video_vae_fp16.safetensors"
+    }
+  },
+  "120": {
+    "class_type": "VAELoader",
+    "inputs": {
+      "vae_name": "minimax_h3_audio_vae_fp32.safetensors"
+    }
+  },
+  "121": {
+    "class_type": "VAEDecodeAudio",
+    "inputs": {
+      "samples": [
+        "125",
+        0
+      ],
+      "vae": [
+        "120",
+        0
+      ]
+    }
+  },
+  "122": {
+    "class_type": "VAEDecode",
+    "inputs": {
+      "samples": [
+        "125",
+        0
+      ],
+      "vae": [
+        "119",
+        0
+      ]
+    }
+  },
+  "123": {
+    "class_type": "KSamplerSelect",
+    "inputs": {
+      "sampler_name": "res_multistep"
+    }
+  },
+  "127": {
+    "class_type": "UNETLoader",
+    "inputs": {
+      "unet_name": "minimax_h3_ref2va_pruned_nvfp4.safetensors",
+      "weight_dtype": "default"
+    }
+  },
+  "bsa": {
+    "class_type": "BlockSparseAttention",
+    "inputs": {
+      "model": [
+        "127",
+        0
+      ],
+      "selection": "Sol-Attn (scheduled tau)",
+      "start_percent": 0.0,
+      "end_percent": 1.0,
+      "dense_blocks": "",
+      "min_tokens": 4096,
+      "extra_tokens": 0,
+      "sink_conditioning": "exact_kv_and_rows",
+      "verbose": true,
+      "selection.tau_low": 1.0,
+      "selection.tau_high": 1.0,
+      "selection.head_steps": 0,
+      "selection.tail_steps": 0
+    }
+  },
+  "124": {
+    "class_type": "BasicScheduler",
+    "inputs": {
+      "model": [
+        "bsa",
+        0
+      ],
+      "steps": [
+        "143",
+        0
+      ],
+      "scheduler": "simple",
+      "denoise": 1
+    }
+  },
+  "125": {
+    "class_type": "SamplerCustomAdvanced",
+    "inputs": {
+      "noise": [
+        "129",
+        0
+      ],
+      "guider": [
+        "126",
+        0
+      ],
+      "sampler": [
+        "123",
+        0
+      ],
+      "sigmas": [
+        "124",
+        0
+      ],
+      "latent_image": [
+        "136",
+        1
+      ]
+    }
+  },
+  "126": {
+    "class_type": "BasicGuider",
+    "inputs": {
+      "model": [
+        "bsa",
+        0
+      ],
+      "conditioning": [
+        "136",
+        0
+      ]
+    }
+  },
+  "128": {
+    "class_type": "CLIPLoader",
+    "inputs": {
+      "clip_name": "qwen3vl_32b_minimax_h3_nvfp4_awq.safetensors",
+      "type": "minimax",
+      "device": "default"
+    }
+  },
+  "129": {
+    "class_type": "RandomNoise",
+    "inputs": {
+      "noise_seed": 20260928
+    }
+  },
+  "130": {
+    "class_type": "CreateVideo",
+    "inputs": {
+      "images": [
+        "122",
+        0
+      ],
+      "audio": [
+        "121",
+        0
+      ],
+      "fps": 24,
+      "bit_depth": 8
+    }
+  },
+  "131": {
+    "class_type": "ComfyMathExpression",
+    "inputs": {
+      "values.a": [
+        "132",
+        0
+      ],
+      "expression": "max(5, round(a * 24)) + (5 - (max(5, round(a * 24)) % 17)) % 17"
+    }
+  },
+  "132": {
+    "class_type": "PrimitiveFloat",
+    "inputs": {
+      "value": 10.0
+    }
+  },
+  "143": {
+    "class_type": "PrimitiveInt",
+    "inputs": {
+      "value": 20
+    }
+  },
+  "w": {
+    "class_type": "PrimitiveInt",
+    "inputs": {
+      "value": 1920
+    }
+  },
+  "h": {
+    "class_type": "PrimitiveInt",
+    "inputs": {
+      "value": 1088
+    }
+  },
+  "138": {
+    "class_type": "PrimitiveStringMultiline",
+    "inputs": {
+      "value": "接线：<Picture 1>=首帧构图（仅开头） <Picture 2>=陆清川 <Picture 3>=苏晚晴 <Picture 4>=叶芷若\n音色：<Audio 1>=仅陆清川 <Audio 2>=仅苏晚晴 <Audio 3>=仅叶芷若\n\n三句对白固定表（不可改说话人、不可改音色、不可错嘴）：\n第1句 说话人=陆清川=<Picture 2> 音色=<Audio 1> 男声 台词：压低，别惊阵。\n第2句 说话人=苏晚晴=<Picture 3> 音色=<Audio 2> 女声 台词：左侧，我来。\n第3句 说话人=叶芷若=<Picture 4> 音色=<Audio 3> 女声 台词：右侧，交给我。\n硬禁止：第3句绝不可由陆清川开口，绝不可用男声，绝不可用<Audio 1>，绝不可出现陆清川口型。第3句画面必须是叶芷若脸部（黑发赤梢、黑红袍，对齐<Picture 4>），口型仅叶芷若。陆清川在第1句说完后至片尾嘴巴始终闭合。苏晚晴仅在第2句张嘴。\n\n其它硬规则：\n- 开场第0帧贴合<Picture 1>；末帧禁止回到首帧，须是更深入雾林的新构图。\n- 同一时刻只一人开口；非说话者嘴巴紧闭。\n- 说话前镜头先停稳在该人面部特写，说完整句前禁止切镜、禁止换人、禁止拉回群像。\n- 表情活泼有戏，禁止面瘫呆滞。\n- 运镜仅缓推/轻移，禁止快切甩镜。\n\n十秒：\n00:00–00:02.5 中远景缓推，贴合<Picture 1>，三人御空追青光，无人说话。\n00:02.5–00:05 推至陆清川半身特写（<Picture 2>）停稳后，仅他开口，<Audio 1>：「压低，别惊阵。」说完气口。他人闭嘴。之后陆清川不再说话。\n00:05–00:07.2 慢滑至苏晚晴半身特写（<Picture 3>）停稳后，仅她开口，<Audio 2>：「左侧，我来。」说完气口。他人闭嘴。\n00:07.2–00:08.8 慢滑至叶芷若半身特写（<Picture 4>：黑发赤梢、黑红修身袍）停稳后，仅她开口，女声<Audio 3>：「右侧，交给我。」镜头钉死叶芷若脸，陆清川不入画中心、不张嘴、不发声。说完气口。\n00:08.8–00:10 拉回三人中远景，全员沉默深入雾林，末帧≠<Picture 1>。\n\n综合视听描述：[镜头1] 电影感中远景空中跟拍，缓推，16:9，真人CG国风修仙。首帧=<Picture 1>。左前陆清川（<Picture 2>青白道袍碧玉冠），右前苏晚晴（<Picture 3>橘黄劲装持弓），稍后叶芷若（<Picture 4>黑发赤梢黑红袍）。追淡青灵兽残光，无人说话，表情生动。\n[镜头2] 推至陆清川面部特写停稳。陆清川，清朗青年男声（S1），音色=<Audio 1>，说道：<d>[Chinese] 压低，别惊阵。</d> 仅陆清川嘴动。说完后他闭嘴至结束。\n[镜头3] 慢滑至苏晚晴面部特写停稳。苏晚晴，明快少女声（S2），音色=<Audio 2>，说道：<d>[Chinese] 左侧，我来。</d> 仅苏晚晴嘴动。\n[镜头4·关键] 慢滑至叶芷若面部特写停稳，画面主体=叶芷若=<Picture 4>，不是陆清川。叶芷若，清冷女声（S3），音色=<Audio 3>，说道：<d>[Chinese] 右侧，交给我。</d> 仅叶芷若嘴唇开合；陆清川此时不说话、不张嘴、不用<Audio 1>。说话全程不切镜。\n[镜头5] 拉回中远景，无对白，深入雾林结束。末帧禁止复刻<Picture 1>。\n\n环境音：风声鸟鸣衣袂。仅上述三句对白，句间留白。第3句必须=叶芷若+<Audio 3>女声。禁止叠音旁白错嘴。\n画外配乐：稀疏古琴低音，不盖人声。\n"
+    }
+  },
+  "img1": {
+    "class_type": "LoadImage",
+    "inputs": {
+      "image": "ref2va_hunt/01_首帧.png"
+    }
+  },
+  "img2": {
+    "class_type": "LoadImage",
+    "inputs": {
+      "image": "ref2va_hunt/01_陆清川-男主.png"
+    }
+  },
+  "img3": {
+    "class_type": "LoadImage",
+    "inputs": {
+      "image": "ref2va_hunt/03_苏晚晴-女徒弟.png"
+    }
+  },
+  "img4": {
+    "class_type": "LoadImage",
+    "inputs": {
+      "image": "ref2va_hunt/04_叶芷若-女徒弟.png"
+    }
+  },
+  "aud1": {
+    "class_type": "LoadAudio",
+    "inputs": {
+      "audio": "ref2va_hunt/01_陆清川-男主.wav"
+    }
+  },
+  "aud2": {
+    "class_type": "LoadAudio",
+    "inputs": {
+      "audio": "ref2va_hunt/03_苏晚晴-女徒弟.wav"
+    }
+  },
+  "aud3": {
+    "class_type": "LoadAudio",
+    "inputs": {
+      "audio": "ref2va_hunt/04_叶芷若-女徒弟.wav"
+    }
+  },
+  "136": {
+    "class_type": "MiniMaxH3ReferenceToVideo",
+    "inputs": {
+      "clip": [
+        "128",
+        0
+      ],
+      "vae": [
+        "119",
+        0
+      ],
+      "audio_vae": [
+        "120",
+        0
+      ],
+      "ref_images.ref_image_0": [
+        "img1",
+        0
+      ],
+      "ref_images.ref_image_1": [
+        "img2",
+        0
+      ],
+      "ref_images.ref_image_2": [
+        "img3",
+        0
+      ],
+      "ref_images.ref_image_3": [
+        "img4",
+        0
+      ],
+      "ref_audios.ref_audio_0": [
+        "aud1",
+        0
+      ],
+      "ref_audios.ref_audio_1": [
+        "aud2",
+        0
+      ],
+      "ref_audios.ref_audio_2": [
+        "aud3",
+        0
+      ],
+      "prompt": [
+        "138",
+        0
+      ],
+      "width": [
+        "w",
+        0
+      ],
+      "height": [
+        "h",
+        0
+      ],
+      "length": [
+        "131",
+        1
+      ],
+      "ref_image_size": "match"
+    }
+  }
+}
