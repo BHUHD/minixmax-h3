@@ -9,13 +9,13 @@
 #         H3_FA_BACKEND=infer_v2 \
 #       python /workspace/scripts/submit_generate.py
 #
-# 镜像：nuvic/minimax-h3:ref2va-cann9.1.0-int8-v1.1
+# 镜像：nuvic/minimax-h3:ref2va-910c-fastapi-int8-cann9.1.0-v1.0.0
 # 模型：../../../models/ComfyUI/INI8/Ref2VA → /models/h3_quant
 name: minimax-h3-ref2va-int8-cann910
 
 services:
   ref2va-int8-npu16:
-    image: ${H3_IMAGE:-nuvic/minimax-h3:ref2va-cann9.1.0-int8-v1.1}
+    image: ${H3_IMAGE:-nuvic/minimax-h3:ref2va-910c-fastapi-int8-cann9.1.0-v1.0.0}
     container_name: minimax-h3-ref2va-int8-npu16
     restart: "no"
     privileged: true
